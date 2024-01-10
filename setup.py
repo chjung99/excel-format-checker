@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+
+try:
+    from pip._internal.req import parse_requirements  # pip 10버전 이상
+
+except ImportError:
+    from pip.req import parse_requirements  # pip 9버전 이하
+
 from setuptools import setup, find_packages
 
 
@@ -18,22 +25,20 @@ def install():
         author='SuHun Han',
         author_email='ssut@ssut.me',
         url='https://github.com/ssut/py-hanspell',
-        classifiers=[
-            'Development Status :: 5 - Production/Stable',
-            'Intended Audience :: Education',
-            'Intended Audience :: End Users/Desktop',
-            'License :: Freeware',
-            'Operating System :: POSIX',
-            'Operating System :: Microsoft :: Windows',
-            'Operating System :: MacOS :: MacOS X',
-            'Topic :: Education',
-            'Programming Language :: Python',
-            'Programming Language :: Python :: 2.6',
-            'Programming Language :: Python :: 2.7',
-            'Programming Language :: Python :: 3.2',
-            'Programming Language :: Python :: 3.3',
-            'Programming Language :: Python :: 3.4'
-        ],
+        classifiers=['Development Status :: 5 - Production/Stable',
+                     'Intended Audience :: Education',
+                     'Intended Audience :: End Users/Desktop',
+                     'License :: Freeware',
+                     'Operating System :: POSIX',
+                     'Operating System :: Microsoft :: Windows',
+                     'Operating System :: MacOS :: MacOS X',
+                     'Topic :: Education',
+                     'Programming Language :: Python',
+                     'Programming Language :: Python :: 2.6',
+                     'Programming Language :: Python :: 2.7',
+                     'Programming Language :: Python :: 3.2',
+                     'Programming Language :: Python :: 3.3',
+                     'Programming Language :: Python :: 3.4'],
         packages=find_packages(),
         install_requires=required,
     )
