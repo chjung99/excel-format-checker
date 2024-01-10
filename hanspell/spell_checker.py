@@ -20,7 +20,7 @@ PY3 = sys.version_info[0] == 3
 
 
 def _remove_tags(text):
-    text = u'<content>{}</content>'.format(text).replace('<br>','')
+    text = u'<content>{}</content>'.format(text).replace('<br>', '')
     if not PY3:
         text = text.encode('utf-8')
 
@@ -41,10 +41,11 @@ def check(text):
         return result
 
     # 최대 500자까지 가능.
-    if len(text) > 500:
+    if len(text) > 300:
         return Checked(result=False)
 
     payload = {
+        'passportKey': "416e75fa5cc37597754ac2b6674e05b6651712f9",
         'color_blindness': '0',
         'q': text
     }
@@ -59,6 +60,7 @@ def check(text):
     passed_time = time.time() - start_time
 
     data = json.loads(r.text)
+
     html = data['message']['result']['html']
     result = {
         'result': True,
@@ -73,10 +75,10 @@ def check(text):
     # ElementTree의 iter()를 써서 더 좋게 할 수 있는 방법이 있지만
     # 이 짧은 코드에 굳이 그렇게 할 필요성이 없으므로 일단 문자열을 치환하는 방법으로 작성.
     html = html.replace('<em class=\'green_text\'>', '<green>') \
-               .replace('<em class=\'red_text\'>', '<red>') \
-               .replace('<em class=\'violet_text\'>', '<violet>') \
-               .replace('<em class=\'blue_text\'>', '<blue>') \
-               .replace('</em>', '<end>')
+        .replace('<em class=\'red_text\'>', '<red>') \
+        .replace('<em class=\'violet_text\'>', '<violet>') \
+        .replace('<em class=\'blue_text\'>', '<blue>') \
+        .replace('</em>', '<end>')
     items = html.split(' ')
     words = []
     tmp = ''
@@ -86,7 +88,7 @@ def check(text):
             tmp = word[:pos]
         elif tmp != '':
             word = u'{}{}'.format(tmp, word)
-        
+
         if word[-5:] == '<end>':
             word = word.replace('<end>', '')
             tmp = ''
